@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import AppShell from '@/components/layout/AppShell'
 import ProgressSteps from '@/components/quote/ProgressSteps'
-import { CARRIERS, getCarrier } from '@/lib/questions'
+import { getCarrier } from '@/lib/questions'
 import { createClient } from '@/lib/supabase/client'
 import type { Application, Quote } from '@/lib/types'
 

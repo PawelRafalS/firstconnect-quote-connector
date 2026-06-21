@@ -5,7 +5,7 @@
  */
 
 import type { AnswerMap, DecisionStatus, QuoteStatus } from './types'
-import { ALL_QUESTIONS, CARRIERS, getClassCodeMapping } from './questions'
+import { ALL_QUESTIONS, CARRIERS } from './questions'
 import { createClient } from './supabase/server'
 
 // ── Rules evaluation ────────────────────────────────────────────
@@ -71,7 +71,7 @@ function simulatePremium(
   carrier_id: string,
   ncci_code: string,
   annual_payroll: number,
-  employee_count: number,
+  _employee_count: number,
 ): number {
   // Base rates per $100 payroll by class code (illustrative)
   const base_rates: Record<string, Record<string, number>> = {
@@ -105,7 +105,7 @@ export async function simulateCarrierQuote(
 
   const { decision, refer_reasons } = runRulesEngine(carrier_id, ncci_code, answers)
 
-  let status: QuoteStatus
+  let status: QuoteStatus = 'error'
   let premium_annual: number | null = null
   const response_reasons: string[] = []
 
@@ -122,6 +122,8 @@ export async function simulateCarrierQuote(
       status = 'decline'
       response_reasons.push(...refer_reasons.filter((r) => r.startsWith('DECLINE')).map((r) => r.replace('DECLINE: ', '')))
       break
+    default:
+      status = 'error'
   }
 
   // Write result to Supabase

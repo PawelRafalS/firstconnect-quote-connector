@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import AppShell from '@/components/layout/AppShell'
 import ProgressSteps from '@/components/quote/ProgressSteps'
-import { searchClassCodes, CLASS_CODE_MAPPINGS } from '@/lib/questions'
+import { searchClassCodes } from '@/lib/questions'
 import type { ClassCodeMapping } from '@/lib/types'
 import { createClient } from '@/lib/supabase/client'
 
