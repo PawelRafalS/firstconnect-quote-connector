@@ -190,7 +190,7 @@ function ResultsInner() {
   </style>
 </head>
 <body>
-  <div class="logo">AGENCY <span>C</span>ONNECTOR &nbsp;·&nbsp; Quote Connector</div>
+  <div class="logo">FIRST <span>C</span>ONNECT &nbsp;·&nbsp; Quote Connector</div>
   <h1>Quote Comparison</h1>
   <div class="meta">
     ${app?.insured_name ?? ''} &nbsp;·&nbsp; ${app?.state ?? ''} &nbsp;·&nbsp;

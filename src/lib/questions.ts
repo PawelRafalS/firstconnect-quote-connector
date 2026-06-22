@@ -1,12 +1,12 @@
 /**
  * Canonical question registry — derived from question-taxonomy.json
- * This is the question layer (D3): carrier-agnostic definitions.
+ * This is the question layer (D1): carrier-agnostic definitions.
  * Carrier rules (the rules layer) live in carriers.ts.
  */
 
 import type { Question, ClassCodeMapping, CarrierRule } from './types'
 
-// ── Class code crosswalk (NCCI is canonical — D4) ──────────────
+// ── Class code crosswalk (NCCI is canonical — D2) ──────────────
 export const CLASS_CODE_MAPPINGS: ClassCodeMapping[] = [
   {
     ncci_code:      '0005',

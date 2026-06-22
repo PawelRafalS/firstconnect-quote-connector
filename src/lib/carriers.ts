@@ -1,6 +1,6 @@
 /**
  * Carrier rules engine + simulation layer.
- * This is the rules layer (D3): per-carrier interpretation of raw answers.
+ * This is the rules layer (D1): per-carrier interpretation of raw answers.
  * Runs server-side only — never exposed to the client.
  */
 

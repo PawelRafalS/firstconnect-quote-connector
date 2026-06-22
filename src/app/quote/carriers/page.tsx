@@ -31,6 +31,10 @@ function CarriersInner() {
     )
   }
 
+  function toggleAll() {
+    setSelected((prev) => (prev.length === CARRIERS.length ? [] : CARRIERS.map((c) => c.id)))
+  }
+
   const ncci = app?.ncci_code ?? '9083'
   const counts = countQuestionsForCarriers(ncci, selected)
 
@@ -67,6 +71,17 @@ function CarriersInner() {
               {' '}Deselecting a carrier removes their exclusive questions.
             </div>
 
+            {/* Select all toggle */}
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Carriers</p>
+              <button
+                onClick={toggleAll}
+                className="text-[11px] font-semibold text-brand-600 hover:text-brand-700"
+              >
+                {selected.length === CARRIERS.length ? 'Deselect all' : 'Select all'}
+              </button>
+            </div>
+
             {/* Carrier cards */}
             <div className="space-y-3 mb-5">
               {CARRIERS.map((carrier) => {
@@ -101,21 +116,21 @@ function CarriersInner() {
                         {extra > 0 ? `+${extra} additional questions` : 'No additional questions'}
                         <span>·</span>
                         <span>{carrier.class_code_std} codes</span>
-                        <span>·</span>
-                        <span className="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded">Eligible</span>
                       </p>
                     </div>
                   </button>
                 )
               })}
 
-              {/* Ineligible placeholder */}
+              {/* Carrier coming soon placeholder */}
               <div className="w-full flex items-center gap-4 p-3.5 rounded-xl border-[1.5px] border-gray-200 bg-white opacity-45">
                 <div className="w-5.5 h-5.5 rounded-full border-[1.5px] border-gray-300 shrink-0" />
                 <div className="w-11 h-11 rounded-lg bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-400 shrink-0">TRV</div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-900">Travelers</p>
-                  <p className="text-[11px] text-gray-400">Not available — NCCI {ncci} not supported in {app?.state ?? 'CO'}</p>
+                  <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                    Travelers
+                    <span className="bg-gray-100 text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded">Coming soon</span>
+                  </p>
                 </div>
               </div>
             </div>

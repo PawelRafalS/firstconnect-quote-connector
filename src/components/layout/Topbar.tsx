@@ -14,7 +14,7 @@ export default function Topbar() {
 
       {/* Logo */}
       <div className="flex-1 text-center text-[15px] font-extrabold tracking-wide text-gray-900">
-        AGENCY <span className="text-orange-500">C</span>ONNECTOR
+        FIRST <span className="text-orange-500">C</span>ONNECT
       </div>
 
       {/* Actions */}
