@@ -31,9 +31,12 @@ export async function POST(req: NextRequest) {
   // Mark application as quoting
   await supabase.from('applications').update({ status: 'quoting' }).eq('id', application_id)
 
-  // Fire carrier simulations in parallel (non-blocking — respond immediately)
+  // Run carrier simulations in parallel and AWAIT before responding.
+  // On serverless (Vercel), fire-and-forget is not safe — the function context
+  // is frozen after the response is sent, so background Promises never complete.
+  // Carriers run concurrently: total wait ≈ max(individual latencies) ~3–4s.
   const carriers: string[] = app.selected_carrier_ids ?? []
-  Promise.all(
+  await Promise.all(
     carriers.map((cid: string) =>
       simulateCarrierQuote(
         application_id,
@@ -44,9 +47,9 @@ export async function POST(req: NextRequest) {
         answers,
       )
     )
-  ).then(async () => {
-    await supabase.from('applications').update({ status: 'quoted' }).eq('id', application_id)
-  }).catch(console.error)
+  )
+
+  await supabase.from('applications').update({ status: 'quoted' }).eq('id', application_id)
 
   return NextResponse.json({ ok: true, carriers })
 }
